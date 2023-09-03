@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="master/master :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="master/master :: header"></header>
+	<div class="container">
+		<hr style="background-color: #fdfdfd" />
+		<div
+			style="font-family: 'Roboto Condensed', sans-serif; font-size: 150%;">Registro
+			de reporte</div>
+		<hr style="background-color: #FA251B" />
+
+
+		<div>
+			<form th:action="@{/report/actualizar}" th:object="${repo}" method="post">
+				<div class="col-sm-12">
+					<label class="form-label">Id: </label> <input type="text"
+						th:field="*{idReport}" class="form-control"></input>
+				</div>
+
+				<div class="col-sm-12">
+					<label class="form-label">DescripciónReporte: </label> <input
+						type="text" th:field="*{descriptionService}" class="form-control"></input>
+				</div>
+
+				<div class="col-sm-12">
+					<label class="form-label">FechaReporte: </label> <input type="date"
+						th:field="*{dateReport}" class="form-control"></input>
+				</div>
+
+				<div class="col-sm-12">
+					<label class="form-label">TipoDesecho: </label> <select
+						name="selectService" class="form-control"
+						th:field="*{service.idService}">
+						<option th:each="sr: ${listService}" th:value="${sr.idService}"
+							th:text="${sr.typewaste}"
+							th:selected="(${sr.idService}==*{service.idService})"></option>
+					</select>
+				</div>
+
+
+				<div class="col-sm-12">
+					<input type="submit" value="Registrar" class="btn btn-dark"></input>
+				</div>
+
+
+			</form>
+		</div>
+
+
+
+	</div>
+</body>
+</html>

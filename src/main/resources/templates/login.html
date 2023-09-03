@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>UPC-WEB</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+<style type="text/css">
+.input-contenedor {
+	margin-bottom: 15px;
+	border: 1px solid #aaa;
+	font-size: 20px;
+	width: 82%;
+	padding: 10px;
+	border: none;
+}
+
+.icon {
+	min-width: 50px;
+	text-align: center;
+	color: #999;
+}
+
+.position{
+
+align-content: center;
+margin-right: 10px;
+padding: 50px;
+
+}
+
+.cond{
+height: 50%;
+width: 50%;
+}
+
+
+.avatar {
+margin: 10%;
+width: 65px;
+border-radius:  50%;
+height: 90px;
+background: #448ed3 ;
+position: relative;
+border:2px solid #fff;
+bottom: 50px;
+overflow:hidden;
+width: 50%;
+height: 45%;
+display: block;
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body style="background: url('/img/prado.jpg'); width: 100%; height: 100%; font-size: 100%" >
+
+	<div class="container" align="center">
+		<div class="card border-light text-center cond">
+			<div class="card-body" align="center">
+				<form th:action="@{/login}" method="post">
+					<div class="col-sm-4">
+						<hr style="background-color: #fdfdfd" />
+						<hr style="background-color: #fdfdfd" />
+					</div>
+					<div class="col-sm-6 avatar">
+						<img th:src="@{/img/Logo9.png}"/>
+					</div>
+			
+					<div class="input-contenedor form-control">
+						<i class="fas fa-user icon"></i> <input type="text"
+							name="username" id="username" placeholder="Usuario" autofocus
+							required />
+					</div>
+
+					<div class="input-contenedor form-control">
+						<i class="fas fa-key icon"></i> <input type="password"
+							name="password" id="password" placeholder="Clave" required />
+					</div>
+					
+					<div>
+						<p>Ya se registro?
+						<a href="/user/nuevo" class="link">Registarse</a>
+						</p>
+					</div>
+
+					<div class="col-sm-6">
+						<input type="submit" class="btn btn-lg btn-dark btn-block"
+							value="Ingresar" />
+					</div>
+				</form>
+
+			</div>
+		</div>
+		<div align="center" class="col-sm-6">
+			<div class="alert alert-success" th:if="${success != null}"
+				th:text="${success}"></div>
+			<div class="alert alert-danger" th:if="${error != null}"
+				th:text="${error}"></div>
+			<div class="alert alert-info" th:if="${info != null}"
+				th:text="${info}"></div>
+		</div>
+	</div>
+</body>
+
+<footer>
+	<div></div>
+</footer>
+
+
+</html>
