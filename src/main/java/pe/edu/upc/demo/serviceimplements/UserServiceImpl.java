@@ -29,15 +29,24 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void Delete(Long idUser) {
+	public void Delete(int idUser) {
 		tR.deleteById(idUser); 
 	}
 
 	@Override
-	public Optional<Users> listarId(Long idUser) {
+	public Optional<Users> listarId(int idUser) {
 		return tR.findById(idUser);
 	}
 
-	
+	@Override
+	public Users findByUsername(String username) {
+		return tR.findByUsername(username);
+	}
+
+	@Override
+	public void actualizarUsuario(Users usuario) {
+		// Aquí debes implementar la lógica para actualizar el usuario en la base de datos
+	    tR.save(usuario); // Ejemplo: Suponiendo que userRepository es tu repositorio
+	}	
 
 }

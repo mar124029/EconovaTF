@@ -7,7 +7,9 @@ import pe.edu.upc.demo.entities.Users;
 
 public interface IUserService {
 	public void insertar(Users u);
-	public void Delete(Long idUser);
+	public void Delete(int idUser);
 	List<Users> listar();
-	Optional<Users> listarId(Long idUser);
+	Optional<Users> listarId(int idUser);
+	public Users findByUsername(String username);
+	public void actualizarUsuario(Users usuario);
 }

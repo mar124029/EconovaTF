@@ -75,8 +75,7 @@
 					de usuario</div>
 				<hr style="background-color: #FA251B" />
 				<div>
-					<form th:action="@{/user/guardar}" th:object="${u}"
-						method="post">
+					<form th:action="@{/user/guardar}" th:object="${u}" method="post">
 
 						<div class="col-sm-12">
 							<label for="name" class="col-sm-2 col-form-label">Nombre:
@@ -133,10 +132,13 @@
 	</div>
 
 
-	<div th:if="${mensaje}" class="alert alert-info">
+	<div th:if="${mensaje}" class="alert alert-danger">
 		<p th:text="${mensaje}"></p>
 	</div>
 
+	<div th:if="${mensajeExito}" class="alert alert-success">
+		<p th:text="${mensajeExito}"></p>
+	</div>
 
 </body>
 </html>

@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,12 +40,12 @@ public class RoleController {
 	@PostMapping("/guardar")
 	public String registrarRole(@Valid Role objTel, BindingResult binRes, Model model) throws ParseException {
 		if (binRes.hasErrors()) {
-			return "role/role";
+			return "/service/new";
 		} else {
 			rService.insertar(objTel);
 			model.addAttribute("mensaje", "Se guardó correctamente");
 			// status.setComplete();
-			return "redirect:/roles/listar";
+			return "/service/new";
 		}
 	}
 

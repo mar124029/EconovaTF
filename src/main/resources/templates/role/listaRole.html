@@ -295,7 +295,7 @@
 								</a>
 									<div class="dropdown-menu dropdown-menu-right"
 										aria-labelledby="navbarDropdownMenuLink">
-										<a class="dropdown-item" href="#">Perfil</a>
+										<a class="dropdown-item" th:href="@{/user/perfil}">Perfil</a>
 
 										<form id="logoutForm" th:action="@{/logout}" method="post">
 											<button class="btn btn-dark" type="submit">Cerrar</button>
@@ -339,14 +339,13 @@
 										<tr align="center" th:each="r:${listaRoles}">
 											<td th:text="${r.user.username}"></td>
 											<td th:text="${r.rol}"></td>
-											
+
 											<td><a th:href="@{/roles/delete?id=}+${r.id}">DELETE
 											</a></td>
-											
-											<td><a
-												th:href="@{'/roles/modificar/'+${r.id}}">ACTUALIZAR
+
+											<td><a th:href="@{'/roles/modificar/'+${r.id}}">ACTUALIZAR
 											</a></td>
-											
+
 										</tr>
 									</tbody>
 								</table>

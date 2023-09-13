@@ -296,7 +296,7 @@
 								</a>
 									<div class="dropdown-menu dropdown-menu-right"
 										aria-labelledby="navbarDropdownMenuLink">
-										<a class="dropdown-item" href="#">Perfil</a>
+										<a class="dropdown-item" th:href="@{/user/perfil}">Perfil</a>
 
 										<form id="logoutForm" th:action="@{/logout}" method="post">
 											<button class="btn btn-dark" type="submit">Cerrar</button>
