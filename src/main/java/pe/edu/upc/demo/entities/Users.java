@@ -25,12 +25,12 @@ public class Users {
 	private Long id;
 
 	@NotEmpty(message = "El nombre es obligatorio")
-	@Column(name = "name", nullable = false)
+	@Column(name = "name",length = 50, nullable = false)
 	private String name;
 
 	@Email
 	@NotEmpty(message = "El correo es obligatorio")
-	@Column(name = "email", nullable = false)
+	@Column(name = "email",length = 50 ,nullable = false)
 	private String email;
 
 	@NotEmpty(message = "El username es obligatorio")

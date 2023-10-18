@@ -40,8 +40,6 @@ public class TypeSuscription {
 	@Column(name = "dateend", nullable = false)
 	private Date dateend;
 	
-	private String image;
-	
 
 	public TypeSuscription() {
 		super();
@@ -90,15 +88,5 @@ public class TypeSuscription {
 	public void setDateend(Date dateend) {
 		this.dateend = dateend;
 	}
-
-	
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	
 }

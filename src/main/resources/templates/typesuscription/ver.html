@@ -46,13 +46,6 @@
 								<td>Fecha Fin</td>
 								<td th:text="${t.dateend}"></td>
 							</tr>
-							
-							<tr>
-								<td>Imagen</td>
-								<img th:if="${t.image}"
-									class="rounded" style="max-width: 50%;"
-									th:src="@{'/typesuscription/uploads/' + ${t.image}}"/>
-							</tr>
 						</tbody>
 
 					</table>
