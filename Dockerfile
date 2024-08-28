@@ -6,7 +6,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Package stage
-FROM eclipse-temurin:17-jdk-slim AS runtime
+FROM openjdk:17-jdk-slim AS runtime
 COPY --from=build target/EconovaSpring-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "/app.jar"]
