@@ -73,20 +73,25 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-				 <configuration>
-                <archive>
-                    <manifestEntries>
-                        <Main-Class>pe.edu.upc.EconovaSpringApplication</Main-Class> <!-- Reemplaza con la clase principal -->
-                    </manifestEntries>
-                </archive>
+    <plugins>
+    <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <!-- o una versión más reciente -->
+</plugin>
+
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <image>
+                    <name>myrepo/econova-spring:latest</name> <!-- Cambia esto según tu preferencia -->
+                </image>
             </configuration>
-			</plugin>
-		</plugins>
-	</build>
+        </plugin>
+        
+    </plugins>
+</build>
 
 </project>
