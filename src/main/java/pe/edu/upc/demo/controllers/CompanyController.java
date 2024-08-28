@@ -3,7 +3,7 @@ package pe.edu.upc.demo.controllers;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

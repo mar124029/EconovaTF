@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,6 +39,11 @@ public class UserController {
 	@Autowired
 	private IRoleService roleService;
 	
+	@GetMapping("/home")
+	public String getHome(){
+		return "user/home";
+	}
+	
 	@GetMapping("/nuevo")
 	public String newUser(Model model) {
 		model.addAttribute("u", new Users());
@@ -47,34 +52,27 @@ public class UserController {
 
 	@PostMapping("/guardar")
 	public String registrarUser(@Valid @ModelAttribute("u") Users objTel, BindingResult binRes, Model model)
-			throws ParseException {
-		
-		 if (binRes.hasErrors()) {
-		        return "user/usuario";
-		    } else {
-		        String p = objTel.getPassword();
-		        String pE = passwordEncoder.encode(p);
-		        Users us = new Users();
-		        us.setUsername(objTel.getUsername());
-		        us.setEnabled(objTel.getEnabled());
-		        us.setEmail(objTel.getEmail());
-		        us.setName(objTel.getName());
-		        us.setPassword(pE);
+	        throws ParseException {
+	    if (binRes.hasErrors()) {
+	        return "user/usuario";
+	    } else {
+	        String pE = passwordEncoder.encode(objTel.getPassword());
+	        objTel.setPassword(pE);
 
-		        if (uService.findByUsername(us.getUsername()) != null) {
-		            model.addAttribute("mensaje", "El nombre de usuario ya está en uso.");
-		            return "user/usuario";
-		        }
+	        if (uService.findByUsername(objTel.getUsername()) != null) {
+	            model.addAttribute("mensaje", "El nombre de usuario ya está en uso.");
+	            return "user/usuario";
+	        }
 
-		        uService.insertar(us);
-		        
-		        Role userRole = new Role();
-		        userRole.setRol("ROLE_USER");
-		        userRole.setUser(us);
-		        roleService.insertar(userRole);
-		        model.addAttribute("mensajeExito", "Se guardó correctamente");
-		        return "user/usuario";
-		    }
+	        uService.insertar(objTel);
+	        
+	        Role userRole = new Role();
+	        userRole.setRol("ROLE_USER");
+	        userRole.setUser(objTel);
+	        roleService.insertar(userRole);
+	        model.addAttribute("mensajeExito", "Se guardó correctamente");
+	        return "user/usuario";
+	    }
 	}
 
 	@GetMapping("/listar")
@@ -88,32 +86,30 @@ public class UserController {
 	}
 
 	@RequestMapping("/delete")
-	public String deleteUsuario(Map<String, Object> model, @RequestParam(value = "id") int id) {
-		try {
-			if (id != 0 && id > 0) {
-				uService.Delete(id);
-				model.put("listaUsuarios", uService.listar());
-				return "user/listaUsuario";
-			}
-		} catch (Exception e) {
-			model.put("error", e.getMessage());
-		}
-		return "user/listaUsuario";
+	public String deleteUsuario(@RequestParam(value = "id") int id, RedirectAttributes redirectAttributes) {
+	    try {
+	        if (id != 0 && id > 0) {
+	            uService.Delete(id);
+	            redirectAttributes.addFlashAttribute("mensajeExito", "Usuario eliminado correctamente");
+	        }
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", e.getMessage());
+	    }
+	    return "redirect:/user/listar";
 	}
 	
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") int id, Map<String, Object> model, RedirectAttributes flash) {
+	    Optional<Users> user = uService.listarId(id);
+	    if (!user.isPresent()) {
+	        flash.addFlashAttribute("error", "El usuario no existe en la base de datos");
+	        return "redirect:/user/listar";
+	    }
 
-		Optional<Users> user = uService.listarId(id);
-		if (user == null) {
-			flash.addFlashAttribute("error", "El usuario no existe en la base de datos");
-			return "redirect:/user/listar";
-		}
-
-		model.put("u", user.get());
-
-		return "user/ver";
+	    model.put("u", user.get());
+	    return "user/ver";
 	}
+
 	
 	@GetMapping("/perfil")
 	public String verPerfil(Model model) {
@@ -126,24 +122,24 @@ public class UserController {
 
 	    return "perfil/ver";
 	}
-	
+
 	@GetMapping("/editar")
-	public String mostrarFormularioEdicion(Model model, Users principal) {
-		String username = principal.getName();
-	    Users user = uService.findByUsername(username);
+	public String mostrarFormularioEdicion(Model model) {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    Users user = uService.findByUsername(authentication.getName());
 	    if (user != null) {
 	        model.addAttribute("user", user);
-	        return "perfil/editar"; // Asegúrate de tener un archivo HTML llamado "editar-perfil.html"
+	        return "perfil/editar";
 	    } else {
-	        // Manejar el caso en el que el usuario no se encuentre
 	        return "error";
 	    }
 	}
 
+
 	@PostMapping("/usuario/editar")
 	public String procesarFormularioEdicion(@ModelAttribute Users user) {
 	    uService.actualizarUsuario(user);
-	    return "redirect:/perfil"; // Puedes redirigir a la página de perfil o donde desees
+	    return "redirect:/perfil";
 	}
 	
 

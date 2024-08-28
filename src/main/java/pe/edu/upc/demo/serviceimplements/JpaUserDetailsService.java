@@ -20,21 +20,26 @@ import pe.edu.upc.demo.repositories.UserRepository;
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Transactional(readOnly = true)
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Users user = userRepository.findByUsername(username);
+    @Transactional(readOnly = true)
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users user = userRepository.findByUsername(username);
 
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
 
-		for (Role role : user.getRoles()) {
-			authorities.add(new SimpleGrantedAuthority(role.getRol()));
-		}
+        List<GrantedAuthority> authorities = new ArrayList<>();
 
-		return new User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authorities);
-	}
+        for (Role role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getRol()));
+        }
 
+        return new User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authorities);
+    }
 }
+
+

@@ -3,7 +3,7 @@ package pe.edu.upc.demo.controllers;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,11 @@ public class DriverController {
 	@Autowired
 	private IDriverService driService;
 
+	@GetMapping("/home")
+	public String getHome(){
+		return "driver/home";
+	}
+	
 	@GetMapping("/new")
 	public String newDriver(Model model) {
 		model.addAttribute("d", new Driver());

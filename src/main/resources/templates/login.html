@@ -18,11 +18,8 @@
 
 <style type="text/css">
 .input-contenedor {
-	margin-bottom: 15px;
-	border: 1px solid #aaa;
 	font-size: 20px;
-	width: 82%;
-	padding: 10px;
+	width: 100%;
 	border: none;
 }
 
@@ -41,24 +38,31 @@ padding: 50px;
 }
 
 .cond{
-height: 50%;
-width: 50%;
+width: 40%;
+height: 60%;
+min-width:400px;
 }
 
 
-.avatar {
-margin: 10%;
-width: 65px;
-border-radius:  50%;
-height: 90px;
-background: #448ed3 ;
-position: relative;
-border:2px solid #fff;
-bottom: 50px;
-overflow:hidden;
-width: 50%;
-height: 45%;
-display: block;
+
+
+body{
+	height: 100vh;
+	font-size: 100%; 
+	background: url('/img/prado.jpg'); 
+	background-repeat: no-repeat; 
+	background-size: cover; 
+	display:flex;
+	align-items:center;
+	justify-content: center;	
+}
+
+section{
+	width:100%;
+	display:flex;
+	flex-direction: column;
+	align-items:center;
+	
 }
 
 
@@ -70,27 +74,23 @@ display: block;
 
 
 
-<body style="background: url('/img/prado.jpg'); width: 100%; height: 100%; font-size: 100%" >
+<body>
 
-	<div class="container" align="center">
-		<div class="card border-light text-center cond">
-			<div class="card-body" align="center">
-				<form th:action="@{/login}" method="post">
-					<div class="col-sm-4">
-						<hr style="background-color: #fdfdfd" />
-						<hr style="background-color: #fdfdfd" />
-					</div>
-					<div class="col-sm-6 avatar">
-						<img th:src="@{/img/Logo9.png}"/>
-					</div>
+	<section>
+		<div class="p-5 card border-light text-center cond">
+			<div class="d-flex align-items-center justify-content-center">
+				<form class="d-flex flex-column align-items-center justify-content-center" th:action="@{/login}" method="post">
+					
+					<img class="img-fluid mb-5 " th:src="@{/img/Logo9.png}" alt ="logo"/>
+					
 			
-					<div class="input-contenedor form-control">
+					<div class="d-flex align-items-center justify-content-center input-contenedor p-2">
 						<i class="fas fa-user icon"></i> <input type="text"
 							name="username" id="username" placeholder="Usuario" autofocus
 							required />
 					</div>
 
-					<div class="input-contenedor form-control">
+					<div class="d-flex align-items-center justify-content-center input-contenedor p-2">
 						<i class="fas fa-key icon"></i> <input type="password"
 							name="password" id="password" placeholder="Clave" required />
 					</div>
@@ -109,7 +109,7 @@ display: block;
 
 			</div>
 		</div>
-		<div align="center" class="col-sm-6">
+		<div class="col-sm-6 text-center cond">
 			<div class="alert alert-success" th:if="${success != null}"
 				th:text="${success}"></div>
 			<div class="alert alert-danger" th:if="${error != null}"
@@ -117,12 +117,10 @@ display: block;
 			<div class="alert alert-info" th:if="${info != null}"
 				th:text="${info}"></div>
 		</div>
-	</div>
+	</section>
 </body>
 
-<footer>
-	<div></div>
-</footer>
+
 
 
 </html>
